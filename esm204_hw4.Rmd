@@ -1,0 +1,78 @@
+---
+title: "esm204_hw4"
+author: "Nicole Schmidt"
+date: "5/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Business as Usual
+```{r}
+
+t <- c(1:200)
+
+temp_overtime <- function(t,T){
+  temp <- out(t,T)
+   <- 0.5*(alpha - p)*q
+  return(out)
+}
+
+temp = function(t,T) # Name the function than Tell the function what the inputs are
+{ 
+out = min(t*T/100,T)
+return(out)
+}
+
+#df=data.frame(ID=(1:10),Value=(value)) 
+ # assign("df",df,envir = .GlobalEnv)
+  #View(df)
+
+df <- data.frame(t = (1:200),T = , row.names=NULL) # creating the data frame
+
+no_change <- temp(T=0, t=c(1:200)) #defining the variables
+modest_change <- temp(T=2, t=c(1:200))
+extreme_change <- temp(T=8, t=c(1:200))
+
+#temp(t=50, T=5) # calling the function; defining the variables
+#temp (t = 50, T = 10) # different values 
+#temp(t = 1, T = 1000)
+```
+
+### Hotter Senario; Economic Activity. K(t) is the fraction of economic activity that is retained in a year if the temperature is r(t) 
+
+```{r}
+beta <- 0.05
+econ = function(r,t) #name function and inputs
+  
+out = exp(-beta*r(t)^2) # write out equation
+
+econ(r= , t= )
+
+```
+
+
+#### Economic activity (Consumption) grows over time rate g, reduced by k: Total consumption at time t:
+```{r}
+
+econ = function(r,t) #name function and inputs
+out = exp(-beta*r(t)^2) # write out equation
+
+consumption = function(out*exp(g*t))
+
+```
+
+Societies Utility from consumption:
+```{r}
+
+n<- .5
+
+utility = function(C,n)
+  
+out= (C^(1-n))/(1-n)
+
+
+```
+
