@@ -9,6 +9,52 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyr)
+library(dplyr)
+```
+
+
+```{r}
+
+TTtmp = 4.4 
+beta = .05
+g = .01
+eta = 0.5
+delta = .005
+r = delta + eta*g 
+
+tauf = function(t, TT)
+{
+  out = min(t*TT/100, TT)
+  return(out)
+}
+
+econ = function(temp)
+{
+  out = exp(-beta*temp^2)
+  return(out)
+}
+
+consumption = function(t, temp)
+{
+  out = econ(temp)*exp(g*t)
+  return(out)
+}
+
+utility = function(C)
+{
+  out = (C^(1 - eta))/ (1 - eta)
+              return(out)
+}
+
+TT = 4.4
+DF = data.frame(t=seq(1,200)) %>% 
+  rowwise() %>% 
+  mutate(tau = tauf(t,TT))
+
+```
+
 ### Business as Usual
 ```{r}
 
