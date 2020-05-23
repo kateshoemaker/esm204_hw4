@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyr)
 library(dplyr)
+library(ggplot2)
 ```
 
 
@@ -48,11 +49,99 @@ utility = function(C)
               return(out)
 }
 
-TT = 4.4
-DF = data.frame(t=seq(1,200)) %>% 
+TT = 0
+DF_no_change = data.frame(t=seq(1,200)) %>% 
   rowwise() %>% 
-  mutate(tau = tauf(t,TT))
+  mutate(tau = tauf(t,TT)) %>% 
+  mutate(K = econ(tau)) %>% 
+  mutate(C = consumption(t, tau)) %>% 
+  mutate(U = utility(C)) %>% 
+  mutate(PVU = U/(1+r)^t)
+  NPV = sum(DF$PVU)
 
+```
+
+Plots 
+
+```{r}
+##a) plot of temp v time for no climate change (T=0)
+TT_nc = 0
+DF_nc = data.frame(t=seq(1,200)) %>% 
+  rowwise() %>% 
+  mutate(tau = tauf(t,TT_nc)) %>% 
+  mutate(K = econ(tau)) %>% 
+  mutate(C = consumption(t, tau)) %>% 
+  mutate(U = utility(C)) %>% 
+  mutate(PVU = U/(1+r)^t)
+  NPV_nc = sum(DF$PVU)
+  
+  TT_moderate = 2
+DF_moderate = data.frame(t=seq(1,200)) %>% 
+  rowwise() %>% 
+  mutate(tau = tauf(t,TT_moderate)) %>% 
+  mutate(K = econ(tau)) %>% 
+  mutate(C = consumption(t, tau)) %>% 
+  mutate(U = utility(C)) %>% 
+  mutate(PVU = U/(1+r)^t)
+  NPV_moderate = sum(DF$PVU)
+  
+  
+  TT_extreme = 8
+DF_extreme = data.frame(t=seq(1,200)) %>% 
+  rowwise() %>% 
+  mutate(tau = tauf(t,TT_extreme)) %>% 
+  mutate(K = econ(tau)) %>% 
+  mutate(C = consumption(t, tau)) %>% 
+  mutate(U = utility(C)) %>% 
+  mutate(PVU = U/(1+r)^t)
+  NPV_extreme = sum(DF$PVU)
+
+  
+  ggplot()+
+    geom_line(data = DF_nc, aes(x = t,
+                                y = tau),
+              color = "blue") +
+    geom_line(data = DF_moderate, aes(x = t,
+                                      y = tau),
+              color = "orange")+
+    geom_line(data = DF_extreme, aes(x = t,
+                                      y = tau),
+              color = "red") + 
+    theme_minimal()
+    
+
+```
+
+```{r}
+##B consumption over time 
+ ggplot()+
+    geom_line(data = DF_nc, aes(x = t,
+                                y = C),
+                                color = "blue") +
+    geom_line(data = DF_moderate, aes(x = t,
+                                      y = C),
+                                      color = "orange")+
+    geom_line(data = DF_extreme, aes(x = t,
+                                      y = C),
+                                     color = "red") + 
+    theme_minimal()
+
+```
+
+
+```{r}
+##C Utility over time 
+ ggplot()+
+    geom_line(data = DF_nc, aes(x = t,
+                                y = U),
+                                color = "blue") +
+    geom_line(data = DF_moderate, aes(x = t,
+                                      y = U),
+                                      color = "orange")+
+    geom_line(data = DF_extreme, aes(x = t,
+                                      y = U),
+                                     color = "red") + 
+    theme_minimal()
 ```
 
 ### Business as Usual
